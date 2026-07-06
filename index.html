@@ -11,11 +11,12 @@ nav{display:flex;gap:8px;padding:12px;overflow:auto;background:#fff;border-botto
 main{max-width:1180px;margin:auto;padding:16px}.page{display:none}.page.active{display:block}.grid{display:grid;grid-template-columns:280px minmax(320px,1fr) 280px;gap:16px}.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;box-shadow:0 2px 8px #0000000a}.card h2,.card h3{margin-top:0}
 select,input,textarea{width:100%;padding:11px;border:1px solid #cbd3dd;border-radius:8px;font:inherit;margin:6px 0 10px}textarea{min-height:180px}
 .teamline{display:flex;align-items:center;gap:10px;font-weight:700}.teamline img,.logo{width:42px;height:42px;object-fit:contain}
-.wheelwrap{display:grid;place-items:center}.wheel{position:relative;width:min(360px,80vw);aspect-ratio:1;border-radius:50%;background:conic-gradient(#c91f28 0 10%,#3c4147 10% 30%,#555 30% 45%,#16864d 45% 70%,#1762b0 70% 85%,#ed9411 85% 100%);border:8px solid #fff;box-shadow:0 0 0 2px #ccd3dc,0 8px 20px #0002;transition:transform 2.2s cubic-bezier(.1,.7,.1,1)}
-.wheel img{position:absolute;inset:50% auto auto 50%;transform:translate(-50%,-50%);width:26%;height:26%;object-fit:contain;background:white;border-radius:50%;padding:4px}.pointer{font-size:34px;color:var(--red);margin-bottom:-12px;z-index:2}
+.wheelwrap{display:grid;place-items:center}.wheel{position:relative;width:min(360px,80vw);aspect-ratio:1;border-radius:50%;background:conic-gradient(#c91f28 0deg 60deg,#3c4147 60deg 120deg,#555 120deg 180deg,#16864d 180deg 240deg,#1762b0 240deg 300deg,#ed9411 300deg 360deg);border:8px solid #fff;box-shadow:0 0 0 2px #ccd3dc,0 8px 20px #0002;transition:transform 2.2s cubic-bezier(.1,.7,.1,1);overflow:hidden}
+.wheel-label{position:absolute;left:50%;top:50%;width:42%;text-align:center;color:#fff;font-weight:800;font-size:16px;line-height:1.15;text-shadow:0 1px 3px #0009;transform-origin:0 0;z-index:1}
+.wheel img{position:absolute;inset:50% auto auto 50%;transform:translate(-50%,-50%);width:26%;height:26%;object-fit:contain;background:white;border-radius:50%;padding:4px;z-index:3}.pointer{font-size:34px;color:var(--red);margin-bottom:-12px;z-index:4}
 .result{text-align:center}.result strong{font-size:30px;color:var(--red)}.score{font-size:34px;font-weight:800;color:var(--red)}
 table{width:100%;border-collapse:collapse}th,td{padding:10px;border-bottom:1px solid var(--line);text-align:left}th{background:#f5f7fa}.actions{display:flex;gap:8px;flex-wrap:wrap}.small{font-size:13px;color:#5d6975}.ok{color:var(--green);font-weight:700}.warn{color:var(--red);font-weight:700}
-@media(max-width:850px){.grid{grid-template-columns:1fr}.wheel{width:min(330px,78vw)}header b{font-size:17px}}
+@media(max-width:850px){.grid{grid-template-columns:1fr}.wheel{width:min(330px,78vw)}.wheel-label{font-size:14px}header b{font-size:17px}}
 </style>
 </head>
 <body>
@@ -27,7 +28,14 @@ table{width:100%;border-collapse:collapse}th,td{padding:10px;border-bottom:1px s
 <main>
 <section id="bat" class="page active"><div class="grid">
 <div class="card"><h3>打者を選択</h3><select id="batter"></select><div id="batterTeam" class="teamline"></div><hr><h3>本日の打席状況</h3><div id="todayStatus"></div></div>
-<div class="card wheelwrap"><div class="pointer">▼</div><div id="wheel" class="wheel"><img src="assets/baseball.png" alt=""></div><button id="spin" class="btn primary">ルーレットを回す</button></div>
+<div class="card wheelwrap"><div class="pointer">▼</div><div id="wheel" class="wheel">
+<span class="wheel-label" style="transform:rotate(30deg) translate(19%,-50%) rotate(-30deg)">三振</span>
+<span class="wheel-label" style="transform:rotate(90deg) translate(19%,-50%) rotate(-90deg)">アウト</span>
+<span class="wheel-label" style="transform:rotate(150deg) translate(19%,-50%) rotate(-150deg)">ヒット</span>
+<span class="wheel-label" style="transform:rotate(210deg) translate(19%,-50%) rotate(-210deg)">二塁打</span>
+<span class="wheel-label" style="transform:rotate(270deg) translate(19%,-50%) rotate(-270deg)">三塁打</span>
+<span class="wheel-label" style="transform:rotate(330deg) translate(19%,-50%) rotate(-330deg)">ホームラン</span>
+<img src="assets/baseball.png" alt=""></div><button id="spin" class="btn primary">ルーレットを回す</button></div>
 <div class="card result"><h3>結果</h3><strong id="resultName">―</strong><div id="resultScore" class="score"></div><p id="totals"></p></div>
 </div>
 <div class="card" style="margin-top:16px"><h3>コピー用メッセージ</h3><textarea id="message" readonly></textarea><button id="copy" class="btn secondary">結果をコピー</button></div></section>
